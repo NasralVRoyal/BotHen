@@ -113,3 +113,26 @@ if __name__ == "__main__":
         asyncio.run(main())
     except KeyboardInterrupt:
         print("🛑 Бот остановлен")
+        
+        # Добавьте В НИЖЕ код после импортов (строка ~35)
+@router.message(F.text == "/test_admin")
+async def test_admin(message: Message):
+    try:
+        me = await bot.get_me()
+        bot_info = await bot.get_chat_member(GROUP_ID, me.id)
+        
+        status = bot_info.status
+        can_invite_users = getattr(bot_info, 'can_invite_users', False)
+        
+        await message.answer(
+            f"🔍 <b>Диагностика прав бота:</b>\n\n"
+            f"👤 Бот: @{me.username}\n"
+            f"📊 Статус: {status}\n"
+            f"🔗 Приглашения: {'✅' if can_invite_users else '❌'}\n"
+            f"🆔 Группа: {GROUP_ID}\n\n"
+            f"{'🎉 ПРАВА ОК!' if status in ['administrator', 'creator'] and can_invite_users else '❌ ДАЙТЕ ПРАВА!'}\n"
+            f'<i>Нужны: "Управление приглашениями"</i>'
+        )
+    except Exception as e:
+        await message.answer(f"❌ Ошибка проверки: {str(e)}")
+
