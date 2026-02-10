@@ -8,7 +8,7 @@ from aiogram.types import Message
 from aiogram import Router
 
 TOKEN = "8568717574:AAEFMhqvccnZ6u0Go_BDyppSK0Ph9Maraho"
-GROUP_ID = 8580261363
+GROUP_ID = -8580261363
 
 logging.basicConfig(level=logging.INFO)
 print("🚀 КАПЧА-БОТ СТАРТУЕТ...")
